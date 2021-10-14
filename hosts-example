@@ -1,0 +1,10 @@
+[all]
+
+[gentoo-distcc]
+root@[container-ipv6]
+
+[gentoo-distcc:vars]
+ansible_connection=ssh
+ansible_port=22
+ansible_user=root
+ansible_password=[root-pass]
