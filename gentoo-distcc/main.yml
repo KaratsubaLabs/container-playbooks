@@ -9,10 +9,15 @@
         src: "{{playbook_dir}}/templates/make.conf.j2"
         dest: "/etc/portage/make.conf"
     # possibly could also sync package lists and update world
-    - name: emerge gentoolkit (for equery)
-      shell:
-        cmd: "emerge app-portage/gentoolkit"
-    - name: emerge distcc
-      portage:
-        package: sys-devel/distcc
-        state: present
+    # - name: emerge gentoolkit (for equery)
+    #   shell:
+    #     cmd: "emerge app-portage/gentoolkit"
+    # - name: emerge distcc
+    #   portage:
+    #     package: sys-devel/distcc
+    #     state: present
+    # - name: start and enable distcc service
+    #   service:
+    #     name: sshd
+    #     state: started
+    #     enabled: yes
