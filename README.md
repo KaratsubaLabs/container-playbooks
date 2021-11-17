@@ -1,9 +1,10 @@
-# KaratsubaLABS - container playbooks
+# tonkatsu - container playbooks
 
 collection of ansible playbooks to automate setup/configuration of a variety of
 services.
 
 so far, we have:
+- takoyaki: set up libvirt and get system ready to host the takoyaki project
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 
 ## PREREQS

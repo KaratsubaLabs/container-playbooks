@@ -1,0 +1,47 @@
+---
+- hosts: takoyaki
+  vars:
+    takoyaki_username: takoyaki
+    network_name: virbr0
+    storage_pool: vps
+    storage_pool_location: /pool
+  tasks:
+    - name: install libvirt
+      apt:
+        name: libvirt
+        state: present
+    - name: start libvirt service
+      service:
+        name: libvirt
+        state: started
+        enabled: yes
+    - name: create user
+      user:
+        name: "{{ takoyaki_username }}"
+        shell: /bin/bash
+        groups: libvirt
+        append: yes
+        create_home: yes
+        state: present
+    - name: check if network interface exists
+      command: "virsh -c qemu:///system net-dumpxml {{ network_name }}"
+      register: net_exists
+    - name: check if storage pool exists
+      command: "virsh -c qemu:///system pool-dumpxml {{ storage_pool }}"
+      register: pool_exists
+    - name: create network interface
+      command: "virsh -c qemu:///system {{ item }}"
+      loop:
+        - "net-define {{ playbook_dir }}/files/network.xml"
+        - "net-start {{ network_name }}"
+        - "net-autostart {{ network_name }}"
+      when: net_exists.rc != 0
+    - name: create storage pool
+      command: "virsh -c qemu:///system {{ item }}"
+      loop:
+        - "pool-define-as {{ storage_pool }} dir --target={{ storage_pool_location }}"
+        - "pool-build {{ storage_pool }}"
+        - "pool-start {{ storage_pool }}"
+        - "pool-autostart {{ storage_pool }}"
+      when: pool_exists.rc != 0
+

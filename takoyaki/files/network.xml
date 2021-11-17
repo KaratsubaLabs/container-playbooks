@@ -1,0 +1,14 @@
+<network>
+    <name></name>
+    <forward mode="nat">
+        <nat>
+            <port start="" end=""/>
+        </nat>
+    </forward>
+    <brdige />
+    <ip address="" netmask="">
+        <dhcp>
+            <range start="" end=""/>
+        </dhcp>
+    </ip>
+</network>
