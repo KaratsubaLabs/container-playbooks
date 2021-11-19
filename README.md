@@ -5,6 +5,7 @@ services.
 
 so far, we have:
 - takoyaki: set up libvirt and get system ready to host the takoyaki project
+- codimd: deploy codimd docker containers
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 
 ## PREREQS
