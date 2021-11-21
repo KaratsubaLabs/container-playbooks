@@ -18,6 +18,7 @@ you will also need to have `ansible` installed. some ansible community modules
 are required, so run:
 ```
 $ ansible-galaxy collection install community.general
+$ ansible-galaxy collection install community.docker
 ```
 
 `sshpass` is required to enter ssh passwords non-interactively.
