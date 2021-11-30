@@ -17,7 +17,7 @@ services:
     depends_on:
       - database
     ports:
-      - "3000:3000"
+      - "4000:3000"
     volumes:
       - codimd-upload-data:/home/hackmd/app/public/uploads
     restart: always

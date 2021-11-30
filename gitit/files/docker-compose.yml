@@ -3,4 +3,4 @@ services:
   gitit:
     build: ./
     ports:
-      - 5001:5001
+      - 4001:5001

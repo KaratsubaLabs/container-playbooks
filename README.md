@@ -5,8 +5,9 @@ services.
 
 so far, we have:
 - takoyaki: set up libvirt and get system ready to host the takoyaki project
-- codimd: deploy codimd docker containers
-- gitit: deploy gitit inside container
+- codimd: deploy codimd (shared markdown editor)
+- gitit: deploy gitit (markdown based wiki)
+- gitea: deploy gitea (git server)
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 - gentoo-distcc-lxc: previous experimentation with running gentoo inside lxc container, wasn't working properly
 
