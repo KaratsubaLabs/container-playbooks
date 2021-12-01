@@ -17,10 +17,15 @@ you need to have `lxc` and `lxd` installed and configured properly for your syst
 consult the relevant documentation based on what you are running on.
 
 you will also need to have `ansible` installed. some ansible community modules
-are required, so run:
+are required, for the general one:
 ```
 $ ansible-galaxy collection install community.general
+```
+and for the docker community module
+```
 $ ansible-galaxy collection install community.docker
+$ pip install docker
+$ pip install docker-compose
 ```
 
 `sshpass` is required to enter ssh passwords non-interactively.

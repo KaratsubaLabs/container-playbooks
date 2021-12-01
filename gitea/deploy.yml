@@ -1,6 +1,15 @@
 ---
-- name: run docker compose
-  docker_compose:
-    project_src: "{{ playbook_dir }}/files"
-    files:
-      - docker-compose.yml
+- hosts: local
+  tasks:
+    - name: run docker compose
+      docker_compose:
+        project_src: "{{ playbook_dir }}/files"
+        files:
+          - docker-compose.yml
+    - name: copy app.ini
+      copy:
+        src: "{{ role_path }}/files/app.ini"
+        dest: "/etc/gitea/app.ini"
+        owner: git
+        group: git
+        mode: "0600"
