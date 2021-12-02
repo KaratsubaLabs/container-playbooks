@@ -13,11 +13,8 @@ so far, we have:
 
 ## PREREQS
 
-you need to have `lxc` and `lxd` installed and configured properly for your system.
-consult the relevant documentation based on what you are running on.
-
-you will also need to have `ansible` installed. some ansible community modules
-are required, for the general one:
+you need to have `ansible` installed. some ansible community modules are
+required, for the general one:
 ```
 $ ansible-galaxy collection install community.general
 ```
@@ -37,6 +34,9 @@ you can run a specific playbook with
 ```
 $ ansible-playbook [path-to-playbook]
 ```
+
+## TODO
+- [ ] start using ansible vault for secrets
 
 ## TROUBLESHOOTING
 
