@@ -1,0 +1,20 @@
+---
+- hosts: local
+  pre_tasks:
+    - name: include public vars
+      include_vars: "{{playbook_dir}}/vars/public.yml"
+    - name: include private vars
+      include_vars: "{{playbook_dir}}/vars/private.yml"
+  vars_prompt:
+    - name: new_user_email
+      prompt: email
+      private: no
+    - name: new_user_password
+      prompt: password
+      private: yes
+  tasks:
+    - name: register new user
+      community.docker.docker_container_exec:
+        container: "{{service_name}}-app"
+        user: hackmd
+        command: "/home/hackmd/app/bin/manage_users --add {{new_user_email}} --pass {{new_user_password}}"
