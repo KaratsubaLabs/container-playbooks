@@ -1,0 +1,108 @@
+
+general:
+    debug: False
+    instance_name: "karatsuba searx"
+    contact_url: False
+    enable_stats: False
+
+brand:
+    git_url: https://github.com/searx/searx
+    git_branch: master
+    issue_url: https://github.com/searx/searx/issues
+    docs_url: https://searx.github.io/searx
+    public_instances: https://searx.space
+    wiki_url: https://github.com/searx/searx/wiki
+    twitter_url: False
+
+search:
+    safe_search: 0
+    autocomplete: ""
+    default_lang: ""
+    ban_time_on_fail: 5
+    max_ban_time_on_fail: 120
+    prefer_configured_language: False
+
+ui:
+    static_path: ""
+    templates_path: ""
+    default_theme: "simple"
+    default_locale: ""
+
+server:
+    port: 8888
+    bind_address: "127.0.0.1"
+    secret_key: "{{searx_secret_key}}"
+    base_url: False
+    image_proxy: False
+    http_protocol_version: "1.0"
+    method: "POST"
+    default_http_headers:
+        X-Content-Type-Options: nosniff
+        X-XSS-Protection: 1; mode=block
+        X-Download-Options: noopen
+        X-Robots-Tag: noindex, nofollow
+        Referrer-Policy: no-referrer
+
+outgoing:
+    request_timeout: 2.0
+    useragent_suffix: ""
+    pool_connections: 100
+    pool_maxsize: 10
+    enable_http2: True
+
+locales:
+    en: English
+    ja: 日本語
+
+engines:
+  - name: bing
+    engine: bing
+    shortcut: b
+  - name: bing images
+    engine: bing_images
+    shortcut: bi
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: d
+  - name: duckduckgo images
+    engine: duckduckgo_images
+    shortcut: di
+  - name: google
+    engine: google
+    shortcut: g
+  - name: google images
+    engine: google_images
+    shortcut: gi
+  - name: google videos
+    engine: google_videos
+    shortcut: gv
+  - name : wikipedia
+    engine : wikipedia
+    shortcut : w
+    base_url : 'https://{language}.wikipedia.org/'
+
+ - name: stackoverflow
+    engine: stackexchange
+    shortcut: stackoverflow
+    api_site: 'stackoverflow'
+    categories: it
+  - name: askubuntu
+    engine: stackexchange
+    shortcut: askubuntu
+    api_site: 'askubuntu'
+    categories: it
+  - name: superuser
+    engine: stackexchange
+    shortcut: superuser
+    api_site: 'superuser'
+    categories: it
+
+  - name: arch wiki
+    engine: archlinux
+    shortcut: a
+    disabled: true
+  - name: gentoo
+    engine: gentoo
+    shortcut: g
+    disabled: true
+

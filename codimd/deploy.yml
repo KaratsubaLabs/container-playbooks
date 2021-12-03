@@ -2,18 +2,18 @@
 - hosts: local
   pre_tasks:
     - name: include public vars
-      include_vars: "{{ playbook_dir }}/vars/public.yml"
+      include_vars: "{{playbook_dir}}/vars/public.yml"
     - name: include private vars
-      include_vars: "{{ playbook_dir }}/vars/private.yml"
+      include_vars: "{{playbook_dir}}/vars/private.yml"
   tasks:
     - name: run docker compose
       docker_compose:
-        project_name: "{{ service_name }}"
+        project_name: "{{service_name}}"
         definition:
           version: "3"
           services:
             database:
-              container_name: "{{ service_name }}-database"
+              container_name: "{{service_name}}-database"
               image: postgres:11.6-alpine
               environment:
                 - "POSTGRES_USER={{postgres_user}}"
@@ -23,7 +23,7 @@
                 - codimd-database-data:/var/lib/postgresql/data
               restart: always
             app:
-              container_name: "{{ service_name }}-app"
+              container_name: "{{service_name}}-app"
               image: hackmdio/hackmd:2.4.1
               environment:
                 - "CMD_DB_URL=postgres://{{postgres_user}}:{{postgres_pass}}@database/{{postgres_db}}"

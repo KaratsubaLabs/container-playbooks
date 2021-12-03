@@ -8,6 +8,7 @@ so far, we have:
 - codimd: deploy codimd (shared markdown editor)
 - gitit: deploy gitit (markdown based wiki)
 - gitea: deploy gitea (git server)
+- searx: deploy searx (meta search engine)
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 - gentoo-distcc-lxc: previous experimentation with running gentoo inside lxc container, wasn't working properly
 

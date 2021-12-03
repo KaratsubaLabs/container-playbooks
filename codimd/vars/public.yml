@@ -2,4 +2,4 @@
 service_name: codimd
 postgres_user: codimd
 postgres_db: codimd
-service_port: 4000 
+service_port: 4000
