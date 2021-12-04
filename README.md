@@ -9,6 +9,7 @@ so far, we have:
 - gitit: deploy gitit (markdown based wiki)
 - gitea: deploy gitea (git server)
 - searx: deploy searx (meta search engine)
+- kanboard: deploy kanboard (kanban board app)
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 - gentoo-distcc-lxc: previous experimentation with running gentoo inside lxc container, wasn't working properly
 

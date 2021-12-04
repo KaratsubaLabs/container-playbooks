@@ -12,16 +12,6 @@
         definition:
           version: "3"
           services:
-            database:
-              container_name: "{{service_name}}-database"
-              image: postgres:11.6-alpine
-              environment:
-                - "POSTGRES_USER={{postgres_user}}"
-                - "POSTGRES_PASSWORD={{postgres_pass}}"
-                - "POSTGRES_DB={{postgres_db}}"
-              volumes:
-                - codimd-database-data:/var/lib/postgresql/data
-              restart: always
             app:
               container_name: "{{service_name}}-app"
               image: hackmdio/hackmd:2.4.1
@@ -43,6 +33,16 @@
                 - "{{service_port}}:3000"
               volumes:
                 - codimd-upload-data:/home/hackmd/app/public/uploads
+              restart: always
+            database:
+              container_name: "{{service_name}}-database"
+              image: postgres:11.6-alpine
+              environment:
+                - "POSTGRES_USER={{postgres_user}}"
+                - "POSTGRES_PASSWORD={{postgres_pass}}"
+                - "POSTGRES_DB={{postgres_db}}"
+              volumes:
+                - codimd-database-data:/var/lib/postgresql/data
               restart: always
           volumes:
             codimd-database-data: {}
