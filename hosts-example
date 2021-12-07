@@ -6,6 +6,17 @@
 [local:vars]
 ansible_connection=local
 
+[host]
+dev@[host-ip]
+
+[host:vars]
+ansible_connection=ssh
+ansible_port=22
+ansible_user=dev
+ansible_password=[dev-pass]
+ansible_become_user=root
+ansible_become_password=[root-pass]
+
 [gentoo-distcc]
 root@[container-ipv6]
 

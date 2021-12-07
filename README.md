@@ -12,6 +12,7 @@ so far, we have:
 - kanboard: deploy kanboard (kanban board app)
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 - gentoo-distcc-lxc: previous experimentation with running gentoo inside lxc container, wasn't working properly
+- host-machine: some playbooks to setup the environment for the host
 
 ## PREREQS
 
