@@ -1,6 +1,24 @@
 ---
-- name: run docker compose
-  docker_compose:
-    project_src: "{{ playbook_dir }}/files"
-    files:
-      - docker-compose.yml
+- hosts: local
+  pre_tasks:
+    - name: include public vars
+      include_vars: "{{playbook_dir}}/vars/public.yml"
+    # - name: include private vars
+    #   include_vars: "{{playbook_dir}}/vars/private.yml"
+  tasks:
+    - name: run docker compose
+      docker_compose:
+        project_name: "{{service_name}}"
+        definition:
+          version: "3"
+          services:
+            app:
+              container_name: "{{service_name}}-app"
+              build: "{{playbook_dir}}/files"
+              ports:
+                - "{{service_port}}:5001"
+              volumes:
+                - gitit-data:/var/www/gitit/
+              restart: always
+          volumes:
+            gitit-data: {}
