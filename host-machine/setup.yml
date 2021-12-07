@@ -18,6 +18,13 @@
         update_cache: yes
         pkg:
           - git
+          - ufw
+          - python3-pip
+    - name: install pip dependencies
+      pip:
+        name:
+          - docker
+          - docker-compose
 
     - name: install docker dependencies
       apt:
@@ -60,4 +67,20 @@
         owner: root
         group: root
         mode: 755
+
+    - ufw:
+        rule: allow
+        name: OpenSSH
+    - ufw:
+        rule: allow
+        port: 3000:3019
+        proto: tcp
+    - ufw:
+        rule: allow
+        port: 4000:4019
+        proto: tcp
+    - name: enable ufw
+      ufw:
+        state: enabled
+        policy: deny
 

@@ -1,5 +1,5 @@
 ---
-- hosts: local
+- hosts: host
   tasks:
     - name: run docker compose
       docker_compose:

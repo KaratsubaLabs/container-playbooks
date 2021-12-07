@@ -1,5 +1,5 @@
 ---
-- hosts: local
+- hosts: host
   vars:
     container-name: gentoo-distcc
     distcc-port: 3632
@@ -9,12 +9,12 @@
     - name: run container
       docker_container:
         name: gentoo-distcc
-        image: "ksmanis/{{ gentoo-distcc }}:tcp"
+        image: "ksmanis/{{gentoo-distcc}}:tcp"
         state: present
         ports:
-          - "{{ distcc-port }}:3632"
+          - "{{distcc-port}}:3632"
     - name: set distcc hosts
       docker_container_exec:
-        container: "{{ gentoo-distcc }}"
-        command: "distcc-config --set-hosts {{ participating-hosts }}"
+        container: "{{gentoo-distcc}}"
+        command: "distcc-config --set-hosts {{participating-hosts}}"
 

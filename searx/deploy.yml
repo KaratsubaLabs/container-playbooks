@@ -1,5 +1,5 @@
 ---
-- hosts: local
+- hosts: host
   pre_tasks:
     - name: include public vars
       include_vars: "{{playbook_dir}}/vars/public.yml"
