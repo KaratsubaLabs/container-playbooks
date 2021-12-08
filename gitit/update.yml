@@ -1,0 +1,11 @@
+---
+- hosts: local
+  pre_tasks:
+    - name: include public vars
+      include_vars: "{{playbook_dir}}/vars/public.yml"
+  tasks:
+    - name: pull from remote
+      community.docker.docker_container_exec:
+        container: "{{service_name}}-app"
+        chdir: /var/www/gitit/wikidata
+        command: git pull origin master

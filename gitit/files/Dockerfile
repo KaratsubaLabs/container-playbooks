@@ -11,6 +11,10 @@ ENV LANG en_US.UTF-8
 RUN mkdir -p /var/www/gitit
 WORKDIR /var/www/gitit
 
+RUN git init wikidata
+COPY git.conf wikidata/.git/config
+RUN cd wikidata && git pull origin master
+
 COPY gitit.conf .
 
 CMD ["gitit", "-f", "gitit.conf"]
