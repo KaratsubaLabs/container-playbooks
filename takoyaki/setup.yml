@@ -1,5 +1,5 @@
 ---
-- hosts: takoyaki
+- hosts: local
   vars:
     takoyaki_username: takoyaki
     network_name: virbr0

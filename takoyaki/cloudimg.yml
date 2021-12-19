@@ -1,0 +1,19 @@
+---
+- hosts: local 
+  become: yes
+  vars:
+    img_location: /var/www/cloudimg
+  tasks:
+    - name: download all cloud images
+      uri:
+        url: "{{item.uri}}"
+        dest: "{{img_location}}/{{item.filename}}"
+        creates: "{{img_location}}/{{item.filename}}"
+        owner: root
+        group: root
+        mode: 660
+      loop:
+        - {filename: "ubuntu-20.04.img", uri: "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"}
+        - {filename: "archlinux.img", uri: "https://mirror.pkgbuild.com/images/latest/Arch-Linux-x86_64-cloudimg-20211201.40458.qcow2"}
+        - {filename: "debian-10.img", uri: "https://cloud.debian.org/images/cloud/buster/20211011-792/debian-10-genericcloud-amd64-20211011-792.qcow2"}
+
