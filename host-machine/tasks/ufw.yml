@@ -1,0 +1,17 @@
+---
+- ufw:
+    rule: allow
+    name: OpenSSH
+- ufw:
+    rule: allow
+    port: 3000:3019
+    proto: tcp
+- ufw:
+    rule: allow
+    port: 4000:4019
+    proto: tcp
+- name: enable ufw
+  ufw:
+    state: enabled
+    policy: deny
+
