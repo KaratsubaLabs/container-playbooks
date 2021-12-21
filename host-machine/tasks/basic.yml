@@ -2,6 +2,8 @@
 - name: create dev user with sudo
   user:
     name: "{{dev_username}}"
+    password: "{{dev_password | password_hash('sha512')}}"
+    update_password: always
     shell: /bin/bash
     groups: sudo
     append: yes

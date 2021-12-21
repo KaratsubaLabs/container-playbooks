@@ -1,0 +1,14 @@
+---
+- hosts: local
+  pre_tasks:
+    - name: include public vars
+      include_vars: "{{playbook_dir}}/vars/public.yml"
+  tasks:
+    - name: run docker compose
+      docker_compose:
+        project_name: "{{service_name}}"
+        definition:
+          version: "3"
+          services:
+            envoy:
+              image: envoyproxy/envoy-alpine:v1.20.1

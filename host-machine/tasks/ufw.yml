@@ -4,6 +4,9 @@
     name: OpenSSH
 - ufw:
     rule: allow
+    name: http
+- ufw:
+    rule: allow
     port: 3000:3019
     proto: tcp
 - ufw:

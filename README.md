@@ -4,6 +4,7 @@ collection of ansible playbooks to automate setup/configuration of a variety of
 services.
 
 so far, we have:
+- front-envoy: reverse proxy into all of our services
 - takoyaki: set up libvirt and get system ready to host the takoyaki project
 - codimd: deploy codimd (shared markdown editor)
 - gitit: deploy gitit (markdown based wiki)
