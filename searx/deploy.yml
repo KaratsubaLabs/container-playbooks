@@ -1,25 +1,16 @@
 ---
 - hosts: host
   pre_tasks:
-    - name: include public vars
-      include_vars: "{{playbook_dir}}/vars/public.yml"
-    - name: include private vars
-      include_vars: "{{playbook_dir}}/vars/private.yml"
+    - name: include vars
+      include_vars:
+        dir: "{{playbook_dir}}/vars"
   tasks:
     - name: run docker compose
       docker_compose:
         project_name: "{{service_name}}"
-        definition:
-          version: "3"
-          services:
-            app:
-              container_name: "{{service_name}}-app"
-              image: searx/searx:latest
-              environment:
-                - BIND_ADDRESS=0.0.0.0:8080
-              ports:
-                - "{{service_port}}:8080"
-              restart: always
+        definition: "{{docker_compose_file}}"
+        state: present
+        build: yes
 
     # this needs to be copied into container
     # either mount a volume or just run docker cp using cmd module

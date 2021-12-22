@@ -1,0 +1,17 @@
+---
+docker_compose_file:
+  version: "3"
+  services:
+    app:
+      container_name: "{{service_name}}-app"
+      image: envoyproxy/envoy-alpine:v1.20.1
+      ports:
+        - 80:10000
+      volumes:
+        - config:/etc/envoy
+  volumes:
+    config: {}
+  networks:
+    default:
+      name: karatnet
+      external: true

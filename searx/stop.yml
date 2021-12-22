@@ -9,11 +9,4 @@
       docker_compose:
         project_name: "{{service_name}}"
         definition: "{{docker_compose_file}}"
-        state: present
-        build: yes
-    - name: copy envoy config file
-      template:
-        src: "{{playbook_dir}}/templates/envoy.yaml.j2"
-        dest: "/var/lib/docker/volumes/{{service_name}}_config/_data/envoy.yaml"
-      become: yes
-
+        state: absent
