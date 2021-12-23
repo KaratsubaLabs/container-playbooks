@@ -5,6 +5,7 @@ services.
 
 so far, we have:
 - front-envoy: reverse proxy into all of our services
+- letsencrypt: certbot container to issue certificates
 - takoyaki: set up libvirt and get system ready to host the takoyaki project
 - codimd: deploy codimd (shared markdown editor)
 - gitit: deploy gitit (markdown based wiki)
