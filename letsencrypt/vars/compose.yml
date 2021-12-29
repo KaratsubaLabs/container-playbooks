@@ -9,6 +9,7 @@ docker_compose_file:
         - "{{service_port}}"
       volumes:
         - config:/etc/lighttpd
+        - /etc/letsencrypt:/etc/letsencrypt/
       restart: always
       tty: true
   volumes:

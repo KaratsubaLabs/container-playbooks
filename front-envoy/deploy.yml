@@ -16,4 +16,9 @@
         src: "{{playbook_dir}}/templates/envoy.yaml.j2"
         dest: "/var/lib/docker/volumes/{{service_name}}_config/_data/envoy.yaml"
       become: yes
-
+    - name: restart containers
+      docker_compose:
+        project_name: "{{service_name}}"
+        definition: "{{docker_compose_file}}"
+        state: present
+        restarted: yes

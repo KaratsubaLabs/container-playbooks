@@ -5,6 +5,15 @@
       include_vars:
         dir: "{{playbook_dir}}/vars"
   tasks:
+    - name: check existence of /etc/letsencrypt
+      stat:
+        path: /etc/letsencrypt
+      register: letsencrypt_dir
+    - name: create /etc/letsencrypt
+      file:
+        state: directory
+        path: /etc/letsencrypt
+      when: letsencrypt_dir.stat.exists == false
     - name: run docker compose
       docker_compose:
         project_name: "{{service_name}}"

@@ -6,8 +6,7 @@ docker_compose_file:
       container_name: "{{service_name}}-app"
       image: envoyproxy/envoy-alpine:v1.20.1
       ports:
-        - 80:80
-        - 443:443
+        - 80:10000
       volumes:
         - config:/etc/envoy
       restart: always

@@ -19,15 +19,12 @@ static_resources:
                     - name: searx 
                       domains: [ "searx.pinohacks.xyz" ]
                       routes:
+                        - match: { prefix: "/.well-known/acme-challenge" }
+                          route:
+                            cluster: letsencrypt
                         - match: { prefix: "/" }
                           route:
                             cluster: searx
-                    - name: letsencrypt
-                      domains: [ "pinohacks.xyz" ]
-                      routes:
-                        - match: { prefix: "/" }
-                          route:
-                            cluster: letsencrypt
   clusters:
     - name: searx 
       connect_timeout: 3s
