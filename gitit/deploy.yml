@@ -3,8 +3,6 @@
   pre_tasks:
     - name: include public vars
       include_vars: "{{playbook_dir}}/vars/public.yml"
-    # - name: include private vars
-    #   include_vars: "{{playbook_dir}}/vars/private.yml"
   tasks:
     - name: run docker compose
       docker_compose:

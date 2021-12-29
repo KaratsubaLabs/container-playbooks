@@ -22,6 +22,12 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: searx
+                    - name: letsencrypt
+                      domains: [ "pinohacks.xyz" ]
+                      routes:
+                        - match: { prefix: "/" }
+                          route:
+                            cluster: letsencrypt
   clusters:
     - name: searx 
       connect_timeout: 3s
@@ -35,4 +41,16 @@ static_resources:
                     socket_address:
                       address: searx-app
                       port_value: 8080
+    - name: letsencrypt
+      connect_timeout: 3s
+      type: strict_dns
+      load_assignment:
+        cluster_name: letsencrypt
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: letsencrypt-app
+                      port_value: 80
 

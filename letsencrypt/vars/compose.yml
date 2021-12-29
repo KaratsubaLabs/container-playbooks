@@ -5,10 +5,15 @@ docker_compose_file:
     app:
       container_name: "{{service_name}}-app"
       build: "{{playbook_dir}}/files"
+      expose:
+        - "{{service_port}}"
       volumes:
-        - challenge:/letsencrypt
-        - cert:/etc/letsencrypt
+        - config:/etc/lighttpd
       restart: always
+      tty: true
   volumes:
-    challenge: {}
-    cert: {}
+    config: {}
+  networks:
+    default:
+      name: karatnet
+      external: true
