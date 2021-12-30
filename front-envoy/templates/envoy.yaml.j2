@@ -4,7 +4,7 @@ static_resources:
       address:
         socket_address:
           address: 0.0.0.0
-          port_value: 10000
+          port_value: 80
       filter_chains:
         - filters:
             - name: envoy.filters.network.http_connection_manager
@@ -23,8 +23,42 @@ static_resources:
                           route:
                             cluster: letsencrypt
                         - match: { prefix: "/" }
+                          redirect:
+                            https_redirect: true
+
+    - name: https-listener
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 443
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: http_proxy
+                http_filters:
+                  - name: envoy.filters.http.router
+                route_config:
+                  name: all
+                  virtual_hosts:
+                    - name: searx
+                      domains: [ "searx.pinohacks.xyz" ]
+                      routes:
+                        - match: { prefix: "/" }
                           route:
                             cluster: searx
+          transport_socket:
+            name: envoy.transport_sockets.tls
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+              common_tls_context:
+                tls_certificates:
+                  certificate_chain:
+                    filename: "/etc/letsencrypt/live/searx.pinohacks.xyz/fullchain.pem"
+                  private_key:
+                    filename: "/etc/letsencrypt/live/searx.pinohacks.xyz/privkey.pem"
+
   clusters:
     - name: searx 
       connect_timeout: 3s

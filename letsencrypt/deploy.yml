@@ -14,6 +14,7 @@
         state: directory
         path: /etc/letsencrypt
       when: letsencrypt_dir.stat.exists == false
+      become: yes
     - name: run docker compose
       docker_compose:
         project_name: "{{service_name}}"
