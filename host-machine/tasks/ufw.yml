@@ -5,6 +5,9 @@
 - ufw:
     rule: allow
     name: http
+- ufw:
+    rule: allow
+    name: https
 - name: enable ufw
   ufw:
     state: enabled
