@@ -1,49 +1,13 @@
 ---
 - hosts: host
   pre_tasks:
-    - name: include public vars
-      include_vars: "{{playbook_dir}}/vars/public.yml"
-    - name: include private vars
-      include_vars: "{{playbook_dir}}/vars/private.yml"
+    - name: include vars
+      include_vars:
+        dir: "{{playbook_dir}}/vars"
   tasks:
     - name: run docker compose
       docker_compose:
         project_name: "{{service_name}}"
-        definition:
-          version: "3"
-          services:
-            app:
-              container_name: "{{service_name}}-app"
-              image: hackmdio/hackmd:2.4.1
-              environment:
-                - "CMD_DB_URL=postgres://{{postgres_user}}:{{postgres_pass}}@database/{{postgres_db}}"
-                - CMD_USECDN=false
-                - CMD_EMAIL=true
-                - CMD_ALLOW_EMAIL_REGISTER=false
-                - CMD_ALLOW_ANONYMOUS=false
-                - CMD_ALLOW_ANONYMOUS_EDITS=false
-                - CMD_ALLOW_ANONYMOUS_VIEWS=false
-                - CMD_DEFAULT_PERMISSION=true
-                - CMD_ALLOW_GRAVATAR=true
-                - CMD_ALLOW_FREEURL=false
-                - CMD_ALLOW_PDF_EXPORT=true
-              depends_on:
-                - database
-              ports:
-                - "{{service_port}}:3000"
-              volumes:
-                - codimd-upload-data:/home/hackmd/app/public/uploads
-              restart: always
-            database:
-              container_name: "{{service_name}}-database"
-              image: postgres:11.6-alpine
-              environment:
-                - "POSTGRES_USER={{postgres_user}}"
-                - "POSTGRES_PASSWORD={{postgres_pass}}"
-                - "POSTGRES_DB={{postgres_db}}"
-              volumes:
-                - codimd-database-data:/var/lib/postgresql/data
-              restart: always
-          volumes:
-            codimd-database-data: {}
-            codimd-upload-data: {}
+        definition: "{{docker_compose_file}}"
+        state: present
+        build: yes
