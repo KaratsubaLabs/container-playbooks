@@ -8,7 +8,13 @@ docker_compose_file:
       ports:
         - 80:80
         - 443:433
+      volumes:
+        - certs:/etc/letsencrypt
+        - config:/etc/nginx
       restart: always
+  volumes:
+    - certs: {}
+    - config: {}
   networks:
     default:
       name: karatnet
