@@ -7,7 +7,7 @@ docker_compose_file:
       image: envoyproxy/envoy-alpine:v1.20.1
       ports:
         - 80:80
-        - 443:433
+        - 443:443
       volumes:
         - config:/etc/envoy
         - /etc/letsencrypt:/etc/letsencrypt

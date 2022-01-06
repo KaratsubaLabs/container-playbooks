@@ -7,14 +7,14 @@ docker_compose_file:
       build: "{{playbook_dir}}/files"
       ports:
         - 80:80
-        - 443:433
+        - 443:443
       volumes:
         - certs:/etc/letsencrypt
         - config:/etc/nginx
       restart: always
   volumes:
-    - certs: {}
-    - config: {}
+    certs: {}
+    config: {}
   networks:
     default:
       name: karatnet
