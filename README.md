@@ -12,6 +12,7 @@ so far, we have:
 - gitea: deploy gitea (git server)
 - searx: deploy searx (meta search engine)
 - kanboard: deploy kanboard (kanban board app)
+- icecast: deploy icecast (media streaming server)
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 - gentoo-distcc-lxc: previous experimentation with running gentoo inside lxc container, wasn't working properly
 - host-machine: some playbooks to setup the environment for the host

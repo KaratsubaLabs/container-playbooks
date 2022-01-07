@@ -1,139 +1,106 @@
 static_resources:
   listeners:
-    - name: http-listener
-      address:
-        socket_address:
-          address: 0.0.0.0
-          port_value: 80
-      filter_chains:
-        - filters:
-            - name: envoy.filters.network.http_connection_manager
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-                stat_prefix: ingress_http
-                http_filters:
-                  - name: envoy.filters.http.router
-                route_config:
-                  name: all
-                  virtual_hosts:
-                    - name: searx 
-                      domains: [ "searx.pinohacks.xyz" ]
-                      routes:
-                        - match: { prefix: "/.well-known/acme-challenge" }
-                          route:
-                            cluster: letsencrypt
-                        - match: { prefix: "/" }
-                          redirect:
-                            https_redirect: true
-                    - name: codimd 
-                      domains: [ "md.pinohacks.xyz" ]
-                      routes:
-                        - match: { prefix: "/.well-known/acme-challenge" }
-                          route:
-                            cluster: letsencrypt
-                        - match: { prefix: "/" }
-                          redirect:
-                            https_redirect: true
+  - name: http-listener
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 80
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          stat_prefix: ingress_http
+          http_filters:
+          - name: envoy.filters.http.router
+          route_config:
+            name: all
+            virtual_hosts:
+            {% for service in services -%}
+            - name: {{service.cluster}}
+              domains: [ "{{service.url}}" ]
+              routes:
+              - match: { prefix: "/.well-known/acme-challenge" }
+                route:
+                  cluster: letsencrypt
+              - match: { prefix: "/" }
+                redirect:
+                  https_redirect: true
+            {% endfor %}
 
-    - name: https-listener
-      address:
-        socket_address:
-          address: 0.0.0.0
-          port_value: 443
-      listener_filters:
-        - name: envoy.filters.listener.tls_inspector
-      filter_chains:
-        - filter_chain_match:
-            server_names: [ "searx.pinohacks.xyz" ]
-          filters:
-            - name: envoy.filters.network.http_connection_manager
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-                stat_prefix: ingress_http
-                http_filters:
-                  - name: envoy.filters.http.router
-                route_config:
-                  name: all
-                  virtual_hosts:
-                    - name: searx
-                      domains: "*"
-                      routes:
-                        - match: { prefix: "/" }
-                          route: { cluster: searx }
-          transport_socket:
-            name: envoy.transport_sockets.tls
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
-              common_tls_context:
-                alpn_protocols: ["h2,http/1.1"]
-                tls_params: { tls_minimum_protocol_version: "TLSv1_2" }
-                tls_certificates:
-                  certificate_chain: { filename: "/etc/letsencrypt/live/searx.pinohacks.xyz/fullchain.pem" }
-                  private_key: { filename: "/etc/letsencrypt/live/searx.pinohacks.xyz/privkey.pem" }
-
-        - filter_chain_match:
-            server_names: [ "md.pinohacks.xyz" ]
-          filters:
-            - name: envoy.filters.network.http_connection_manager
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-                stat_prefix: ingress_http
-                http_filters:
-                  - name: envoy.filters.http.router
-                route_config:
-                  name: all
-                  virtual_hosts:
-                    - name: searx
-                      domains: "*"
-                      routes:
-                        - match: { prefix: "/" }
-                          route: { cluster: codimd }
-          transport_socket:
-            name: envoy.transport_sockets.tls
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
-              common_tls_context:
-                alpn_protocols: ["h2,http/1.1"]
-                tls_params: { tls_minimum_protocol_version: "TLSv1_2" }
-                tls_certificates:
-                  certificate_chain: { filename: "/etc/letsencrypt/live/md.pinohacks.xyz/fullchain.pem" }
-                  private_key: { filename: "/etc/letsencrypt/live/md.pinohacks.xyz/privkey.pem" }
+  - name: https-listener
+    address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 443
+    listener_filters:
+    - name: envoy.filters.listener.tls_inspector
+    filter_chains:
+    {% for service in services -%}
+    - filter_chain_match:
+        server_names: [ "{{service.url}}" ]
+      filters:
+      - name: envoy.filters.network.http_connection_manager
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+          stat_prefix: ingress_http
+          http_filters:
+          - name: envoy.filters.http.router
+          route_config:
+            name: all
+            virtual_hosts:
+            - name: {{service.cluster}}
+              domains: "*"
+              routes:
+              - match: { prefix: "/" }
+                route: { cluster: {{service.cluster}} }
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+          common_tls_context:
+            alpn_protocols: ["h2,http/1.1"]
+            tls_params: { tls_minimum_protocol_version: "TLSv1_2" }
+            tls_certificates:
+              certificate_chain: { filename: "/etc/letsencrypt/live/{{service.url}}/fullchain.pem" }
+              private_key: { filename: "/etc/letsencrypt/live/{{service.url}}/privkey.pem" }
+    {% endfor %}
 
   clusters:
-    - name: searx 
-      connect_timeout: 3s
-      type: strict_dns
-      load_assignment:
-        cluster_name: searx
-        endpoints:
-          - lb_endpoints:
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: searx-app
-                      port_value: 8080
-    - name: codimd
-      connect_timeout: 3s
-      type: strict_dns
-      load_assignment:
-        cluster_name: coidmd
-        endpoints:
-          - lb_endpoints:
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: codimd-app
-                      port_value: 3000
-    - name: letsencrypt
-      connect_timeout: 3s
-      type: strict_dns
-      load_assignment:
-        cluster_name: letsencrypt
-        endpoints:
-          - lb_endpoints:
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: letsencrypt-app
-                      port_value: 80
+  - name: searx 
+    connect_timeout: 3s
+    type: strict_dns
+    load_assignment:
+      cluster_name: searx
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: searx-app
+                port_value: 8080
+  - name: codimd
+    connect_timeout: 3s
+    type: strict_dns
+    load_assignment:
+      cluster_name: coidmd
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: codimd-app
+                port_value: 3000
+  - name: letsencrypt
+    connect_timeout: 3s
+    type: strict_dns
+    load_assignment:
+      cluster_name: letsencrypt
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: letsencrypt-app
+                port_value: 80
 

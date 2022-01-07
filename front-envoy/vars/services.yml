@@ -1,0 +1,4 @@
+---
+services:
+  - {cluster: "searx", url: "searx.pinohacks.xyz"}
+  - {cluster: "codimd", url: "md.pinohacks.xyz"}
