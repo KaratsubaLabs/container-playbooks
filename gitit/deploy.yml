@@ -13,10 +13,14 @@
             app:
               container_name: "{{service_name}}-app"
               build: "{{playbook_dir}}/files"
-              ports:
-                - "{{service_port}}:5001"
+              expose:
+                - "{{service_port}}"
               volumes:
-                - gitit-data:/var/www/gitit/
+                - data:/var/www/gitit/
               restart: always
           volumes:
-            gitit-data: {}
+            data: {}
+          networks:
+            default:
+              name: karatnet
+              external: true

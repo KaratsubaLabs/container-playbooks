@@ -43,7 +43,11 @@ $ ansible-playbook [path-to-playbook]
 
 ## TODO
 - [ ] start using ansible vault for secrets
+- [x] reduce redundancy in envoy config
+- [ ] adding new certs is kinda cancer (envoy can't run since certs are missing, but you can't get certs unless envoy is running)
+- [ ] playbooks that need to build dockerfiles dont work on remote hosts
 
+ 
 ## TROUBLESHOOTING
 
 ### No internet connection inside lxc container

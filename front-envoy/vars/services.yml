@@ -2,3 +2,4 @@
 services:
   - {cluster: "searx", url: "searx.pinohacks.xyz"}
   - {cluster: "codimd", url: "md.pinohacks.xyz"}
+  - {cluster: "gitit", url: "wiki.pinohacks.xyz"}
