@@ -1,5 +1,6 @@
 ---
 services:
-  - {cluster: "searx", url: "searx.pinohacks.xyz"}
-  - {cluster: "codimd", url: "md.pinohacks.xyz"}
-  - {cluster: "gitit", url: "wiki.pinohacks.xyz"}
+  - {cluster: "searx", url: "searx.pinohacks.xyz", enabled: "true"}
+  - {cluster: "codimd", url: "md.pinohacks.xyz", enabled: "true"}
+  - {cluster: "gitit", url: "wiki.pinohacks.xyz", enabled: "true"}
+  - {cluster: "gitea", url: "git.pinohacks.xyz", enabled: "true"}

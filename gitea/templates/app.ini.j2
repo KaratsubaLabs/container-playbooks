@@ -15,7 +15,7 @@ TEMP_PATH = /tmp/gitea/uploads
 [server]
 APP_DATA_PATH           = /var/lib/gitea
 SSH_DOMAIN              = localhost
-HTTP_PORT               = 3000
+HTTP_PORT               = {{service_port}}
 ROOT_URL                = 
 DISABLE_SSH             = false
 ; In rootless gitea container only internal ssh server is supported
@@ -28,11 +28,11 @@ LFS_CONTENT_PATH        = /var/lib/gitea/git/lfs
 
 [database]
 PATH    = /var/lib/gitea/data/gitea.db
-DB_TYPE = postgres
-HOST    = db:5432
-NAME    = gitea
-USER    = gitea
-PASSWD  = gitea
+DB_TYPE = {{database_type}}
+HOST    = database:5432
+NAME    = {{database_name}}
+USER    = {{database_user}}
+PASSWD  = {{database_password}}
 
 [session]
 PROVIDER_CONFIG = /var/lib/gitea/data/sessions

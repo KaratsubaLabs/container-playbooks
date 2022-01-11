@@ -1,15 +1,24 @@
 ---
 - hosts: host
+  pre_tasks:
+    - name: include vars
+      include_vars:
+        dir: "{{playbook_dir}}/vars"
   tasks:
     - name: run docker compose
       docker_compose:
-        project_src: "{{ playbook_dir }}/files"
-        files:
-          - docker-compose.yml
+        project_name: "{{service_name}}"
+        definition: "{{docker_compose_file}}"
+        state: present
+        build: yes
     - name: copy app.ini
-      copy:
-        src: "{{ role_path }}/files/app.ini"
-        dest: "/etc/gitea/app.ini"
-        owner: git
-        group: git
-        mode: "0600"
+      template:
+        src: "{{playbook_dir}}/templates/app.ini.j2"
+        dest: "/var/lib/docker/volumes/{{service_name}}_app-config/_data/app.ini"
+      become: yes
+    - name: restart containers
+      docker_compose:
+        project_name: "{{service_name}}"
+        definition: "{{docker_compose_file}}"
+        state: present
+        restarted: yes

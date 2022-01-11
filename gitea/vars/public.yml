@@ -1,0 +1,6 @@
+---
+service_name: gitea
+service_port: 3000
+database_type: postgres
+database_name: gitea
+database_user: gitea

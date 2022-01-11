@@ -37,6 +37,7 @@ static_resources:
     - name: envoy.filters.listener.tls_inspector
     filter_chains:
     {% for service in services -%}
+    {% if service.enabled == "true" -%}
     - filter_chain_match:
         server_names: [ "{{service.url}}" ]
       filters:
@@ -64,6 +65,7 @@ static_resources:
             tls_certificates:
               certificate_chain: { filename: "/etc/letsencrypt/live/{{service.url}}/fullchain.pem" }
               private_key: { filename: "/etc/letsencrypt/live/{{service.url}}/privkey.pem" }
+    {% endif -%}
     {% endfor %}
 
   clusters:
@@ -103,6 +105,18 @@ static_resources:
               socket_address:
                 address: gitit-app
                 port_value: 5001
+  - name: gitea
+    connect_timeout: 3s
+    type: strict_dns
+    load_assignment:
+      cluster_name: gitea
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: gitea-app
+                port_value: 3000
   - name: letsencrypt
     connect_timeout: 3s
     type: strict_dns
