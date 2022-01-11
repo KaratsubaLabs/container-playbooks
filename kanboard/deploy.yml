@@ -1,24 +1,13 @@
 ---
 - hosts: host
   pre_tasks:
-    - name: include public vars
-      include_vars: "{{playbook_dir}}/vars/public.yml"
+    - name: include vars
+      include_vars:
+        dir: "{{playbook_dir}}/vars"
   tasks:
     - name: run docker compose
       docker_compose:
         project_name: "{{service_name}}"
-        definition:
-          version: "3"
-          services:
-            app:
-              container_name: "{{service_name}}-app"
-              image: kanboard/kanboard:latest
-              ports:
-                - "{{service_port}}:80"
-              volumes:
-                - kanboard-app-data:/var/www/app/data
-                - kanboard-app-plugins:/var/www/app/plugins
-              restart: always
-          volumes:
-            kanboard-app-data: {}
-            kanboard-app-plugins: {}
+        definition: "{{docker_compose_file}}"
+        state: present
+        build: yes

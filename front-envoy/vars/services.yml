@@ -4,3 +4,4 @@ services:
   - {cluster: "codimd", url: "md.pinohacks.xyz", enabled: "true"}
   - {cluster: "gitit", url: "wiki.pinohacks.xyz", enabled: "true"}
   - {cluster: "gitea", url: "git.pinohacks.xyz", enabled: "true"}
+  - {cluster: "kanboard", url: "todo.pinohacks.xyz", enabled: "true"}
