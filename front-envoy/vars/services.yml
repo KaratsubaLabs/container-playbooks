@@ -1,7 +1,8 @@
 ---
 services:
-  - {cluster: "searx", url: "searx.pinohacks.xyz", enabled: "true"}
-  - {cluster: "codimd", url: "md.pinohacks.xyz", enabled: "true"}
-  - {cluster: "gitit", url: "wiki.pinohacks.xyz", enabled: "true"}
-  - {cluster: "gitea", url: "git.pinohacks.xyz", enabled: "true"}
-  - {cluster: "kanboard", url: "todo.pinohacks.xyz", enabled: "true"}
+  - {cluster: "searx", url: "searx.pinohacks.xyz", address: "searx-app", port: "8080", enabled: "true"}
+  - {cluster: "codimd", url: "md.pinohacks.xyz", address: "codimd-app", port: "3000", enabled: "true"}
+  - {cluster: "gitit", url: "wiki.pinohacks.xyz", address: "gitit-app", port: "5001", enabled: "true"}
+  - {cluster: "gitea", url: "git.pinohacks.xyz", address: "gitea-app", port: "3000", enabled: "true"}
+  - {cluster: "kanboard", url: "todo.pinohacks.xyz", address: "kanboard-app", port: "80", enabled: "true"}
+  - {cluster: "drone", url: "drone.pinohacks.xyz", address: "drone-server", port: "80", enabled: "true"}

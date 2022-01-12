@@ -69,66 +69,20 @@ static_resources:
     {% endfor %}
 
   clusters:
-  - name: searx 
+  {% for service in services -%}
+  - name: {{service.cluster}}
     connect_timeout: 3s
     type: strict_dns
     load_assignment:
-      cluster_name: searx
+      cluster_name: {{service.cluster}}
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: searx-app
-                port_value: 8080
-  - name: codimd
-    connect_timeout: 3s
-    type: strict_dns
-    load_assignment:
-      cluster_name: coidmd
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: codimd-app
-                port_value: 3000
-  - name: gitit
-    connect_timeout: 3s
-    type: strict_dns
-    load_assignment:
-      cluster_name: gitit
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: gitit-app
-                port_value: 5001
-  - name: gitea
-    connect_timeout: 3s
-    type: strict_dns
-    load_assignment:
-      cluster_name: gitea
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: gitea-app
-                port_value: 3000
-  - name: kanboard
-    connect_timeout: 3s
-    type: strict_dns
-    load_assignment:
-      cluster_name: kanboard
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: kanboard-app
-                port_value: 80
+                address: {{service.address}}
+                port_value: {{service.port}}
+  {% endfor -%}
   - name: letsencrypt
     connect_timeout: 3s
     type: strict_dns

@@ -10,6 +10,7 @@ so far, we have:
 - codimd: deploy codimd (shared markdown editor)
 - gitit: deploy gitit (markdown based wiki)
 - gitea: deploy gitea (git server)
+- drone: deploy drone (ci cd runner)
 - searx: deploy searx (meta search engine)
 - kanboard: deploy kanboard (kanban board app)
 - icecast: deploy icecast (media streaming server)

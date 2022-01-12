@@ -1,0 +1,40 @@
+---
+docker_compose_file:
+  version: "3"
+  services:
+    server:
+      container_name: "{{service_name}}-server"
+      image: drone/drone:2
+      environment:
+        - "DRONE_GITEA_SERVER=https://git.pinohacks.xyz"
+        - "DRONE_GITEA_CLIENT_ID={{gitea_client_id}}"
+        - "DRONE_GITEA_CLIENT_SECRET={{gitea_client_secret}}"
+        - "DRONE_SERVER_HOST=drone.pinohacks.xyz"
+        - "DRONE_SERVER_PROTO=https"
+        - "DRONE_RPC_SECRET={{rpc_secret}}"
+      expose:
+        - 80
+      volumes:
+        - server-data:/data
+      restart: always
+    runner:
+      container_name: "{{service_name}}-runner"
+      image: drone/drone-runner-docker:1
+      environment:
+        - "DRONE_RUNNER_NAME=drone-runner"
+        - "DRONE_RUNNER_CAPACITY=2"
+        - "DRONE_RPC_HOST={{service_name}}-server"
+        - "DRONE_RPS_PROTO=http"
+        - "DRONE_RPC_SECRET={{rpc_secret}}"
+      expose:
+        - 3000
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      restart: always
+  volumes:
+    server-data: {}
+  networks:
+    default:
+      name: karatnet
+      external: true
+
