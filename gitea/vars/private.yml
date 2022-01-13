@@ -1,2 +1,5 @@
 ---
 database_password: gitea
+gitea_secret_key: superdupersecretkey
+gitea_internal_token: superdupersecrettoken
+

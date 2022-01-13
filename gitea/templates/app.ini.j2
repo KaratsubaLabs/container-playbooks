@@ -16,7 +16,7 @@ TEMP_PATH = /tmp/gitea/uploads
 APP_DATA_PATH           = /var/lib/gitea
 SSH_DOMAIN              = localhost
 HTTP_PORT               = {{service_port}}
-ROOT_URL                = 
+ROOT_URL                = https://git.pinohacks.xyz
 DISABLE_SSH             = false
 ; In rootless gitea container only internal ssh server is supported
 START_SSH_SERVER        = true
@@ -49,10 +49,10 @@ ROOT_PATH = /var/lib/gitea/data/log
 
 [security]
 INSTALL_LOCK                  = false
-SECRET_KEY                    = 
+SECRET_KEY                    = {{gitea_secret_key}}
 REVERSE_PROXY_LIMIT           = 1
 REVERSE_PROXY_TRUSTED_PROXIES = *
-INTERNAL_TOKEN                = 
+INTERNAL_TOKEN                = {{gitea_internal_token}}
 
 [service]
 DISABLE_REGISTRATION = false
