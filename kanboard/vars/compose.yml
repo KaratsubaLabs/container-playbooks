@@ -5,6 +5,8 @@ docker_compose_file:
     app:
       container_name: "{{service_name}}-app"
       image: kanboard/kanboard:latest
+      environment:
+        - "PLUGIN_INSTALLER=true"
       expose:
         - "{{service_port}}"
       volumes:

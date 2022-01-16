@@ -11,3 +11,11 @@
         definition: "{{docker_compose_file}}"
         state: present
         build: yes
+    - name: install kanboard plugins
+      community.docker.docker_container_exec:
+        container: "{{service_name}}-app"
+        user: root
+        command: "/var/www/app/cli plugin:install {{item.url}}"
+      loop:
+        - { url: "https://github.com/kanboard/plugin-slack/releases/download/v1.0.7/Slack-1.0.7.zip" }
+
