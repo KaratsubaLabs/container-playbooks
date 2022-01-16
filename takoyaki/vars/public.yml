@@ -1,0 +1,8 @@
+---
+service_name: takoyaki
+api_port: 8080
+frontend_port: 8080
+database_port: 5432
+
+db_name: postgres
+db_user: postgres

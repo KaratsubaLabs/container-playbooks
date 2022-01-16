@@ -1,5 +1,5 @@
 # takoyaki 
 
 ## TODO
-- [ ] pull cloud images into some dir
+- [x] pull cloud images into some dir
 

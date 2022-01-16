@@ -1,0 +1,45 @@
+---
+docker_compose_file:
+  version: "3"
+  services:
+    api:
+      container_name: "{{service_name}}-api"
+      depends_on:
+        - database
+      image: karatsubalabs/takoyaki-backend
+      environment:
+        - "DB_HOST=database"
+        - "DB_PORT={{database_port}}"
+        - "DB_NAME={{db_name}}"
+        - "DB_USER={{db_user}}"
+        - "DB_PASSWORD={{db_password}}"
+        - "JWT_SECRET={{jwt_secret}}"
+      expose:
+        - "{{api_port}}"
+      volumes:
+        - api-pipe:/var/run/takoyaki
+    database:
+      container_name: takoyaki-database
+      image: postgres:13.1
+      environment:
+        - "POSTGRES_USER={{db_user}}"
+        - "POSTGRES_PASSWORD={{db_password}}"
+      expose:
+        - "{{database_port}"
+      volumes:
+        - database-data:/var/lib/postgresql/data
+      restart: always
+      command: "-p {{database_port}}"
+    frontend:
+      container_name: "{{service_name}}-frontend"
+      image: karatsubalabs/takoyaki-frontend
+      expose:
+        - "{{frontend_port}}"
+  volumes:
+    api-pipe: {}
+    database-data: {}
+  networks:
+    default:
+      name: karatnet
+      external: true
+
