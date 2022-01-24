@@ -5,9 +5,9 @@
     dev_username: dev
     compose_version: v2.2.2
   vars_prompt:
-    - name: dev_password
-      prompt: password for dev account
-      private: yes
+    # - name: dev_password
+    #   prompt: password for dev account
+    #   private: yes
   tasks:
     - include_tasks: "{{playbook_dir}}/tasks/{{item}}.yml"
       loop:

@@ -1,13 +1,21 @@
 ---
+- name: enable ufw service
+  systemd:
+    name: ufw
+    state: started
+    enabled: yes
+- name: start ufw
+  ufw:
+    state: enabled
 - ufw:
     rule: allow
     name: OpenSSH
 - ufw:
     rule: allow
-    name: http
+    port: 80
 - ufw:
     rule: allow
-    name: https
+    port: 443
 - name: enable ufw
   ufw:
     state: enabled
