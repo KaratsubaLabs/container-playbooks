@@ -6,10 +6,10 @@ docker_compose_file:
       container_name: "{{service_name}}-server"
       image: drone/drone:2
       environment:
-        - "DRONE_GITEA_SERVER=https://git.pinohacks.xyz"
+        - "DRONE_GITEA_SERVER=https://git.{{DOMAIN}}"
         - "DRONE_GITEA_CLIENT_ID={{gitea_client_id}}"
         - "DRONE_GITEA_CLIENT_SECRET={{gitea_client_secret}}"
-        - "DRONE_SERVER_HOST=drone.pinohacks.xyz"
+        - "DRONE_SERVER_HOST=drone.{{DOMAIN}}"
         - "DRONE_SERVER_PROTO=https"
         - "DRONE_RPC_SECRET={{rpc_secret}}"
       expose:
