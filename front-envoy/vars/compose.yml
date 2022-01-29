@@ -11,9 +11,30 @@ docker_compose_file:
       volumes:
         - config:/etc/envoy
         - /etc/letsencrypt:/etc/letsencrypt
+      depends_on:
+        - vpn
+      restart: always
+    vpn:
+      container_name: "{{service_name}}-vpn"
+      image: lscr.io/linuxserver/wireguard
+      cap_add:
+        - NET_ADMIN
+        - SYS_MODULE
+      environment:
+        - "PUID=1000"
+        - "GUID=1000"
+        - "TZ=Canada/Eastern"
+      ports:
+        - "51820:51820/udp"
+      volumes:
+        - vpn-config:/config
+        - /lib/modules:/lib/modules
+      sysctls:
+        - net.ipv4.conf.all.src_valid_mark=1
       restart: always
   volumes:
     config: {}
+    vpn-config: {}
   networks:
     default:
       name: karatnet
