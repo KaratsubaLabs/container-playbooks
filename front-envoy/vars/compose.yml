@@ -5,14 +5,12 @@ docker_compose_file:
     app:
       container_name: "{{service_name}}-app"
       image: envoyproxy/envoy-alpine:v1.20.1
-      ports:
-        - 80:80
-        - 443:443
       volumes:
         - config:/etc/envoy
         - /etc/letsencrypt:/etc/letsencrypt
       depends_on:
         - vpn
+      network_mode: "service:vpn"
       restart: always
     vpn:
       container_name: "{{service_name}}-vpn"
@@ -26,11 +24,13 @@ docker_compose_file:
         - "TZ=Canada/Eastern"
       ports:
         - "51820:51820/udp"
+        - "80:80"
+        - "443:443"
       volumes:
         - vpn-config:/config
         - /lib/modules:/lib/modules
       sysctls:
-        - net.ipv4.conf.all.src_valid_mark=1
+        - net.ipv4.conf.all.rp_filter=2
       restart: always
   volumes:
     config: {}

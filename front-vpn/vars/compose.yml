@@ -12,8 +12,15 @@ docker_compose_file:
         - "PUID=1000"
         - "GUID=1000"
         - "TZ=Canada/Eastern"
+        - "SERVERURL=auto"
+        - "SERVERPORT={{service_port}}"
+        - "PEERS=1"
+        - "PEERDNS=auto"
+        - "ALLOWEDIPS=0.0.0.0/0"
       ports:
         - "51820:{{service_port}}/udp"
+        - "80:80"
+        - "443:443"
       volumes:
         - app-config:/config
         - /lib/modules:/lib/modules
@@ -22,8 +29,3 @@ docker_compose_file:
       restart: always
   volumes:
     app-config: {}
-  networks:
-    default:
-      name: karatnet
-      external: true
-
