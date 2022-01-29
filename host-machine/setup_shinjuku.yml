@@ -1,0 +1,23 @@
+---
+- hosts: host
+  become: yes
+  vars:
+    dev_username: dev
+    compose_version: v2.2.2
+  tasks:
+    - include_tasks: "{{playbook_dir}}/tasks/{{item}}.yml"
+      loop:
+        - basic
+        - docker
+        - ufw
+
+    # set ufw rules
+    - ufw:
+        rule: allow
+        name: OpenSSH
+    - ufw:
+        rule: allow
+        port: 80
+    - ufw:
+        rule: allow
+        port: 443

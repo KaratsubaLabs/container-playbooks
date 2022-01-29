@@ -5,6 +5,7 @@ services.
 
 so far, we have:
 - front-envoy: reverse proxy into all of our services
+- front-vpn: wireguard hosted on cloud provider to get public ip
 - letsencrypt: certbot container to issue certificates as well as small web server to serve letsencrypt challenge files
 - takoyaki: set up libvirt and get system ready to host the takoyaki project
 - codimd: deploy codimd (shared markdown editor)
@@ -46,7 +47,7 @@ $ ansible-playbook [path-to-playbook]
 ## TODO
 - [ ] start using ansible vault for secrets
 - [x] reduce redundancy in envoy config
-- [ ] adding new certs is kinda cancer (envoy can't run since certs are missing, but you can't get certs unless envoy is running)
+- [x] adding new certs is kinda cancer (envoy can't run since certs are missing, but you can't get certs unless envoy is running)
 - [ ] playbooks that need to build dockerfiles dont work on remote hosts
 
  

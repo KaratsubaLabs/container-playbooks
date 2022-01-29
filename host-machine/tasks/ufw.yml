@@ -7,15 +7,6 @@
 - name: start ufw
   ufw:
     state: enabled
-- ufw:
-    rule: allow
-    name: OpenSSH
-- ufw:
-    rule: allow
-    port: 80
-- ufw:
-    rule: allow
-    port: 443
 - name: enable ufw
   ufw:
     state: enabled
