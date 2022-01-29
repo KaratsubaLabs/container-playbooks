@@ -6,6 +6,7 @@ services.
 so far, we have:
 - front-envoy: reverse proxy into all of our services
 - vpn-server: wireguard hosted on cloud provider to get public ip
+- vpn-client: client container to connect to wireguard
 - letsencrypt: certbot container to issue certificates as well as small web server to serve letsencrypt challenge files
 - takoyaki: set up libvirt and get system ready to host the takoyaki project
 - codimd: deploy codimd (shared markdown editor)

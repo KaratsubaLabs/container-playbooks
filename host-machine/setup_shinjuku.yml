@@ -21,3 +21,7 @@
     - ufw:
         rule: allow
         port: 443
+    - ufw:
+        rule: allow
+        port: '51820'
+        proto: udp

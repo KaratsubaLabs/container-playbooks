@@ -1,0 +1,3 @@
+---
+service_name: wireguard
+service_port: 51820
