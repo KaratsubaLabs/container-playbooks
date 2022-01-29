@@ -1,0 +1,29 @@
+---
+docker_compose_file:
+  version: "3"
+  services:
+    app:
+      container_name: "{{service_name}}-app"
+      image: lscr.io/linuxserver/wireguard
+      cap_add:
+        - NET_ADMIN
+        - SYS_MODULE
+      environment:
+        - "PUID=1000"
+        - "GUID=1000"
+        - "TZ=Canada/Eastern"
+        - "SERVERURL=auto"
+        - "SERVERPORT={{service_port}}"
+        - "PEERS=1"
+        - "PEERDNS=auto"
+        - "ALLOWEDIPS=0.0.0.0/0"
+      ports:
+        - "51820:{{service_port}}/udp"
+      volumes:
+        - app-config:/config
+        - /lib/modules:/lib/modules
+      sysctls:
+        - net.ipv4.conf.all.src_valid_mark=1
+      restart: always
+  volumes:
+    app-config: {}

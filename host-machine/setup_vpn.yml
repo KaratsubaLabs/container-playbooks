@@ -10,7 +10,14 @@
         - basic
         - docker
         - ufw
+
     # set ufw rules
     - ufw:
         rule: allow
         name: OpenSSH
+    - ufw:
+        rule: allow
+        port: '51820'
+        proto: udp
+
+
