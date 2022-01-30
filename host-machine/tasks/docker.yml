@@ -47,3 +47,8 @@
     group: root
     mode: 755
 
+- name: create docker network
+  docker_network:
+    name: "{{docker_network}}"
+    driver: bridge
+

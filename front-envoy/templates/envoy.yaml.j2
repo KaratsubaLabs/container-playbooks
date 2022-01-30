@@ -28,6 +28,7 @@ static_resources:
                   https_redirect: true
             {% endfor %}
 
+  {% if disable_ssl == "false" -%}
   - name: https-listener
     address:
       socket_address:
@@ -66,7 +67,8 @@ static_resources:
               certificate_chain: { filename: "/etc/letsencrypt/live/{{service.url}}/fullchain.pem" }
               private_key: { filename: "/etc/letsencrypt/live/{{service.url}}/privkey.pem" }
     {% endif -%}
-    {% endfor %}
+    {% endfor -%}
+  {% endif %}
 
   clusters:
   {% for service in services -%}

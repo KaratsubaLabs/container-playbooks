@@ -4,24 +4,26 @@
   vars:
     dev_username: dev
     compose_version: v2.2.2
+    docker_network: karatnet
   tasks:
     - include_tasks: "{{playbook_dir}}/tasks/{{item}}.yml"
       loop:
-        - basic
+        # - basic
         - docker
-        - ufw
+        # - ufw
+        # - ansible
 
     # set ufw rules
-    - ufw:
-        rule: allow
-        name: OpenSSH
-    - ufw:
-        rule: allow
-        port: 80
-    - ufw:
-        rule: allow
-        port: 443
-    - ufw:
-        rule: allow
-        port: '51820'
-        proto: udp
+    # - ufw:
+    #     rule: allow
+    #     name: OpenSSH
+    # - ufw:
+    #     rule: allow
+    #     port: 80
+    # - ufw:
+    #     rule: allow
+    #     port: 443
+    # - ufw:
+    #     rule: allow
+    #     port: '51820'
+    #     proto: udp
