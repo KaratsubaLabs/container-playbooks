@@ -4,6 +4,7 @@ collection of ansible playbooks to automate setup/configuration of a variety of
 services.
 
 so far, we have:
+- router: config files for main router (might be dangerous to use ansible - possible modify manually)
 - front-envoy: reverse proxy into all of our services
 - front-vpn: wireguard hosted on cloud provider to get public ip
 - letsencrypt: certbot container to issue certificates as well as small web server to serve letsencrypt challenge files

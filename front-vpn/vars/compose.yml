@@ -14,7 +14,7 @@ docker_compose_file:
         - "TZ=Canada/Eastern"
         - "SERVERURL=auto"
         - "SERVERPORT={{service_port}}"
-        - "PEERS=2"
+        - "PEERS=1"
         - "PEERDNS=auto"
         - "ALLOWEDIPS=0.0.0.0/0"
       ports:
