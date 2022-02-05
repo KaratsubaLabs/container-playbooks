@@ -1,0 +1,31 @@
+---
+# build the docker container required
+# TODO this should be automated with cicd in the future
+- hosts: host
+  pre_tasks:
+    - name: include vars
+      include_vars:
+        dir: "{{playbook_dir}}/vars"
+  tasks:
+    - name: create temp build directory
+      tempfile:
+        state: directory
+        suffix: build
+      register: builddir
+    - name: copy build files
+      copy:
+        src: "{{playbook_dir}}/files/"
+        dest: "{{builddir.path}}"
+    - name: build letsencrypt container
+      docker_image:
+        name: localhost:5000/letsencrypt
+        build:
+          path: "{{builddir.path}}"
+        push: yes
+        tag: v1
+        source: build
+    - name: clean up
+      file:
+        state: absent
+        path: "{{builddir.path}}"
+

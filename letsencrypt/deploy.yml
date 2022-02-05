@@ -1,5 +1,5 @@
 ---
-- hosts: local
+- hosts: host
   pre_tasks:
     - name: include vars
       include_vars:

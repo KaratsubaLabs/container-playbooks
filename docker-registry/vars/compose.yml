@@ -5,8 +5,8 @@ docker_compose_file:
     app:
       container_name: "{{service_name}}-app"
       image: registry:2
-      expose:
-        - "{{service_port}}"
+      ports:
+        - "{{service_port}}:{{service_port}}"
       volumes:
         - data:/var/lib/registry
       restart: always

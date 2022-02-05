@@ -4,7 +4,7 @@ docker_compose_file:
   services:
     app:
       container_name: "{{service_name}}-app"
-      build: "{{playbook_dir}}/files"
+      image: localhost:5000/letsencrypt:v1
       expose:
         - "{{service_port}}"
       volumes:

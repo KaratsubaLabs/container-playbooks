@@ -1,5 +1,5 @@
 ---
-disable_ssl: "false"
+disable_ssl: "true"
 services:
   - {cluster: "searx", url: "searx.{{DOMAIN}}", address: "searx-app", port: "8080", enabled: "true"}
   - {cluster: "codimd", url: "md.{{DOMAIN}}", address: "codimd-app", port: "3000", enabled: "true"}
