@@ -1,0 +1,38 @@
+---
+docker_compose_file:
+  version: "3"
+  services:
+    app:
+      container_name: "{{service_name}}-app"
+      image: nginxdemos/hello:latest
+      depends_on:
+        - vpn
+      network_mode: "service:vpn"
+      restart: always
+    vpn:
+      container_name: "{{service_name}}-vpn"
+      image: lscr.io/linuxserver/wireguard
+      cap_add:
+        - NET_ADMIN
+        - SYS_MODULE
+      environment:
+        - "PUID=1000"
+        - "GUID=1000"
+        - "TZ=Canada/Eastern"
+      ports:
+        - "51820:51820/udp"
+        - "80:80"
+        - "443:443"
+      volumes:
+        - vpn-config:/config
+        - /lib/modules:/lib/modules
+      sysctls:
+        - net.ipv4.conf.all.rp_filter=2
+      restart: always
+  volumes:
+    config: {}
+    vpn-config: {}
+  networks:
+    default:
+      name: karatnet
+      external: true
