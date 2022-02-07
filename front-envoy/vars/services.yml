@@ -1,7 +1,7 @@
 ---
 disable_ssl: "true"
 services:
-  - {cluster: "searx", url: "searx.{{DOMAIN}}", address: "searx-app", port: "8080", enabled: "true"}
+  # - {cluster: "searx", url: "searx.{{DOMAIN}}", address: "searx-app", port: "8080", enabled: "true"}
   - {cluster: "codimd", url: "md.{{DOMAIN}}", address: "codimd-app", port: "3000", enabled: "false"}
   - {cluster: "gitit", url: "wiki.{{DOMAIN}}", address: "gitit-app", port: "5001", enabled: "false"}
   - {cluster: "gitea", url: "git.{{DOMAIN}}", address: "gitea-app", port: "3000", enabled: "false"}
