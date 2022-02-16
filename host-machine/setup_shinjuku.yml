@@ -33,5 +33,5 @@
         proto:tcp
     - ufw:
         rule: allow
-        port: '51820'
+        port: 51820
         proto: udp

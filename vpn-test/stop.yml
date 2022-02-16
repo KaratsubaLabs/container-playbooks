@@ -1,0 +1,12 @@
+---
+- hosts: gateway
+  pre_tasks:
+    - name: include vars
+      include_vars:
+        dir: "{{playbook_dir}}/vars"
+  tasks:
+    - name: run docker compose
+      docker_compose:
+        project_name: "{{service_name}}"
+        definition: "{{docker_compose_file}}"
+        state: absent

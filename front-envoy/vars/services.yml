@@ -1,10 +1,10 @@
 ---
-disable_ssl: "true"
+disable_ssl: "false"
 services:
-  # - {cluster: "searx", url: "searx.{{DOMAIN}}", address: "searx-app", port: "8080", enabled: "true"}
-  - {cluster: "codimd", url: "md.{{DOMAIN}}", address: "codimd-app", port: "3000", enabled: "false"}
-  - {cluster: "gitit", url: "wiki.{{DOMAIN}}", address: "gitit-app", port: "5001", enabled: "false"}
-  - {cluster: "gitea", url: "git.{{DOMAIN}}", address: "gitea-app", port: "3000", enabled: "false"}
-  - {cluster: "kanboard", url: "todo.{{DOMAIN}}", address: "kanboard-app", port: "80", enabled: "false"}
-  - {cluster: "drone", url: "drone.{{DOMAIN}}", address: "drone-server", port: "80", enabled: "false"}
+  - {cluster: "searx", url: "searx.{{DOMAIN}}", address: "searx-app", port: "8080", enabled: "true"}
+  - {cluster: "codimd", url: "md.{{DOMAIN}}", address: "codimd-app", port: "3000", enabled: "true"}
+  - {cluster: "gitit", url: "wiki.{{DOMAIN}}", address: "gitit-app", port: "5001", enabled: "true"}
+  - {cluster: "gitea", url: "git.{{DOMAIN}}", address: "gitea-app", port: "3000", enabled: "true"}
+  - {cluster: "kanboard", url: "todo.{{DOMAIN}}", address: "kanboard-app", port: "80", enabled: "true"}
+  - {cluster: "drone", url: "drone.{{DOMAIN}}", address: "drone-server", port: "80", enabled: "true"}
   - {cluster: "icecast", url: "radio.{{DOMAIN}}", address: "icecast-app", port: "80", enabled: "false"}

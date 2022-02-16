@@ -29,3 +29,7 @@ docker_compose_file:
       restart: always
   volumes:
     app-config: {}
+  networks:
+    default:
+      name: karatnet
+      external: true

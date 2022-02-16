@@ -26,13 +26,7 @@ static_resources:
               - match: { prefix: "/" }
                 redirect:
                   https_redirect: true
-            {% endfor -%}
-            - name: searx
-              domains: [ "searx.karatsubalabs.com" ]
-              routes:
-              - match: { prefix: "/" }
-                route:
-                  cluster: searx
+            {% endfor %}
 
           access_log:
           - name: envoy.access_loggers.file
@@ -195,16 +189,3 @@ static_resources:
               socket_address:
                 address: letsencrypt-app
                 port_value: 80
-
-  - name: searx
-    connect_timeout: 3s
-    type: strict_dns
-    load_assignment:
-      cluster_name: searx
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: searx-app
-                port_value: 8080
