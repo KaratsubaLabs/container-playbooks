@@ -32,9 +32,9 @@ kind: Service
 metadata:
   name: codimd-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-    app: app
+    app: codimd
   ports:
   - protocol: TCP
     port: 3000
