@@ -1,0 +1,15 @@
+---
+docker_compose_file:
+  version: "3"
+  services:
+    app:
+      container_name: "{{service_name}}-app"
+      image: localhost:5000/homepage:latest
+      expose:
+        - "{{service_port}}"
+      restart: always
+      tty: true
+  networks:
+    default:
+      name: karatnet
+      external: true
