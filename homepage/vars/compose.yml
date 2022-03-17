@@ -4,7 +4,7 @@ docker_compose_file:
   services:
     app:
       container_name: "{{service_name}}-app"
-      image: localhost:5000/homepage:latest
+      image: localhost:5000/homepage:v1
       expose:
         - "{{service_port}}"
       restart: always
