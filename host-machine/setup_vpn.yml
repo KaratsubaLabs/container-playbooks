@@ -11,6 +11,7 @@
         - basic
         - docker
         - ufw
+        - ansible
 
     # set ufw rules
     - ufw:
