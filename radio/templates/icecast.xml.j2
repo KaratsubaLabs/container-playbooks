@@ -2,7 +2,7 @@
     <!-- location and admin are two arbitrary strings that are e.g. visible
          on the server info page of the icecast web interface
          (server_version.xsl). -->
-    <location>Earth</location>
+    <location>KaratsubaLabs</location>
     <admin>icemaster@localhost</admin>
 
     <!-- IMPORTANT!
@@ -144,6 +144,20 @@
     -->
 
     <!-- Normal mounts -->
+    <mount type="normal">
+        <mount-name>/animusic.ogg</mount-name>
+
+        <max-listeners>10</max-listeners>
+        <!-- intro>/example_intro.ogg</intro -->
+        <hidden>1</hidden>
+        <public>1</public>
+        <http-headers>
+                <header name="Access-Control-Allow-Origin" value="http://webplayer.example.org" />
+                <header name="baz" value="quux" />
+        </http-headers>
+        <on-connect>/home/icecast/bin/stream-start</on-connect>
+        <on-disconnect>/home/icecast/bin/stream-stop</on-disconnect>
+    </mount>
     <!--
     <mount type="normal">
         <mount-name>/example-complex.ogg</mount-name>

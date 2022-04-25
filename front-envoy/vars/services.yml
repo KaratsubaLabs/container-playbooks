@@ -8,4 +8,4 @@ services:
   - {cluster: "gitea", url: "git.{{DOMAIN}}", address: "gitea-app", port: "3000", enabled: "true"}
   - {cluster: "kanboard", url: "todo.{{DOMAIN}}", address: "kanboard-app", port: "80", enabled: "true"}
   - {cluster: "drone", url: "drone.{{DOMAIN}}", address: "drone-server", port: "80", enabled: "true"}
-  - {cluster: "icecast", url: "radio.{{DOMAIN}}", address: "icecast-app", port: "80", enabled: "false"}
+  - {cluster: "icecast", url: "radio.{{DOMAIN}}", address: "icecast-app", port: "8000", enabled: "true"}

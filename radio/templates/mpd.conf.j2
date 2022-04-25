@@ -1,0 +1,31 @@
+
+music_directory "/etc/mpd/music"
+
+pid_file "/run/mpd/mpd.pid"
+db_file "/var/lib/mpd/mpd.db"
+state_file "/var/lib/mpd/mpdstate"
+playlist_directory "/var/lib/mpd/playlists"
+
+bind_to_address	"127.0.0.1"
+auto_update "yes"
+
+audio_output {
+    type        "shout"
+    encoding    "ogg"
+    name        "animusic"
+    host        "localhost"
+    port        "8000"
+    mount       "/animusic.ogg"
+    user        "source"
+    password    "{{source_password}}"
+
+    bitrate     "64"
+    format      "44100:16:1"
+    description "weeb music"
+    genre       "animusic"
+}
+
+audio_output {
+    type "null"
+    name "fake out"
+}

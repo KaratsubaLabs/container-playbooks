@@ -15,7 +15,7 @@ so far, we have:
 - drone: deploy drone (ci cd runner)
 - searx: deploy searx (meta search engine)
 - kanboard: deploy kanboard (kanban board app)
-- icecast: deploy icecast (media streaming server)
+- radio: deploy icecast and mpd (media streaming server)
 - docker-registry: deploy an instance of a docker registry
 - homepage: simple vanilla html page to serve as からつばLABS homepage
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling

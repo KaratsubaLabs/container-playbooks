@@ -4,15 +4,17 @@ docker_compose_file:
   services:
     app:
       container_name: "{{service_name}}-app"
-      build: "{{playbook_dir}}/files"
+      image: localhost:5000/radio:v1
       volumes:
-        - config:/etc/icecast2
+        - icecast-config:/etc/icecast2
+        - mpd-config:/etc/mpd
       tty: true
-      ports: 
-        - "{{service_port}}:{{service_port}}"
+      expose: 
+        - "{{service_port}}"
       restart: always
   volumes:
-    config: {}
+    icecast-config: {}
+    mpd-config: {}
   networks:
     default:
       name: karatnet
