@@ -14,6 +14,8 @@ docker_compose_file:
       volumes:
         - app-config:/etc/gitea
         - app-data:/var/lib/gitea
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro
       expose:
         - 3000
       ports:
