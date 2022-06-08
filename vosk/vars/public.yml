@@ -1,0 +1,3 @@
+---
+service_name: vosk
+service_port: 2700

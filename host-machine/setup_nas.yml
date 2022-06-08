@@ -1,0 +1,27 @@
+---
+- hosts: nas
+  become: yes
+  vars:
+    dev_username: dev
+  tasks:
+    - include_tasks: "{{playbook_dir}}/tasks/{{item}}.yml"
+      loop:
+        - basic
+        - ufw
+        - ansible
+
+    # set ufw rules
+    - ufw:
+        rule: allow
+        name: OpenSSH
+    - ufw:
+        rule: allow
+        port: 80
+    - ufw:
+        rule: allow
+        port: 443
+    - ufw:
+        rule: allow
+        port: 2049
+
+

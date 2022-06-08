@@ -18,6 +18,7 @@ so far, we have:
 - radio: deploy icecast and mpd (media streaming server)
 - docker-registry: deploy an instance of a docker registry
 - homepage: simple vanilla html page to serve as からつばLABS homepage
+- vosk: speech recognition service (en and jp)
 - gentoo-distcc: distcc container specifically for gentoo distributed compiling
 - gentoo-distcc-lxc: previous experimentation with running gentoo inside lxc container, wasn't working properly
 - host-machine: some playbooks to setup the environment for the host
