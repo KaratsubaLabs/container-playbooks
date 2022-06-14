@@ -1,6 +1,6 @@
 ---
 # very similar to docker.yml, except this is used for running kubernetes nodes
-- name: install docker dependencies
+- name: install containerd dependencies
   apt:
     update-cache: yes
     state: present
@@ -32,9 +32,13 @@
     name: "{{dev_username}}"
     groups: docker
     append: yes
-- name: start and enable docker service
+- name: remove cri from disabled plugins in containerd config.toml
+  shell: sed -i 's/disabled_plugins = \["cri"\]/disabled_plugins = \[\]/' /etc/containerd/config.toml
+- name: start and enable containerd service
   systemd:
-    name: docker
+    name: containerd
     state: started
     enabled: yes
+- name: run kubeadm init
+  shell: kubeadm init
 

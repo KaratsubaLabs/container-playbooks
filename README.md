@@ -1,5 +1,9 @@
 # tonkatsu - container playbooks
 
+**[DEPRECATION NOTICE]** - in process of migrating service playbooks to
+[donburi](https://github.com/KaratsubaLabs/donburi), management and
+bootstrapping playbooks like `host-machine` will remain however
+
 collection of ansible playbooks to automate setup/configuration of a variety of
 services.
 
