@@ -1,0 +1,27 @@
+---
+# TODO run these checks https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/ before starting node
+- name: install kubernetes dependencies
+  apt:
+    update-cache: yes
+    state: present
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+- name: add gpg key for kubernetes repo
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+- name: add to apt sources
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+- name: install kubernetes packages
+  apt:
+    update-cache: yes
+    state: present
+    pkg:
+      - kubelet
+      - kubeadm
+      - kubectl
+  # TODO also need to hold versions for these packages https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/

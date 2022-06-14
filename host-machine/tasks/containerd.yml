@@ -1,0 +1,40 @@
+---
+# very similar to docker.yml, except this is used for running kubernetes nodes
+- name: install docker dependencies
+  apt:
+    update-cache: yes
+    state: present
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common 
+- name: add gpg key for docker repo
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+- name: add to apt sources
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian bullseye stable
+    state: present
+- name: install containerd packages
+  apt:
+    update_cache: yes
+    state: present
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+- name: add dev user to docker group
+  user:
+    name: "{{dev_username}}"
+    groups: docker
+    append: yes
+- name: start and enable docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+

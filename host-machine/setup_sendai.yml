@@ -1,5 +1,5 @@
 ---
-- hosts: node
+- hosts: sendai
   become: yes
   vars:
     dev_username: dev
@@ -9,9 +9,10 @@
     - include_tasks: "{{playbook_dir}}/tasks/{{item}}.yml"
       loop:
         - basic
-        - docker
-        - ufw
         - ansible
+        - ufw
+        - containerd
+        - kubernetes
 
     # set ufw rules
     - ufw:
@@ -23,7 +24,3 @@
     - ufw:
         rule: allow
         port: 443
-    # vosk
-    - ufw:
-        rule: allow
-        port: 2700
