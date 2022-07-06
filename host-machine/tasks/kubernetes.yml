@@ -25,3 +25,41 @@
       - kubeadm
       - kubectl
   # TODO also need to hold versions for these packages https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+# kubernetes control pane ports https://kubernetes.io/docs/reference/ports-and-protocols/
+- ufw:
+    comment: kubernetes API server
+    rule: allow
+    port: 6443
+    proto: tcp
+- ufw:
+    comment: etcd server client API
+    rule: allow
+    port: 2379:2380
+    proto: tcp
+- ufw:
+    comment: kubelet API
+    rule: allow
+    port: 10250
+    proto: tcp
+- ufw:
+    comment: kube-scheduler
+    rule: allow
+    port: 10259
+    proto: tcp
+- ufw:
+    comment: kube-controller-manager
+    rule: allow
+    port: 10257
+    proto: tcp
+
+# - name: run kubeadm init
+#   shell: kubeadm init --skip-phases=kubelet-finalize
+
+# TODO run post kubeadm stuff (as dev user)
+# mkdir -p $HOME/.kube
+# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# troubleshooting if `kubectl get all` cant connect to port 443
+# just run `systemctl restart kubelet`

@@ -12,3 +12,14 @@
     state: enabled
     policy: deny
 
+# set basic ufw rules
+- ufw:
+    rule: allow
+    name: OpenSSH
+- ufw:
+    rule: allow
+    port: 80
+- ufw:
+    rule: allow
+    port: 443
+

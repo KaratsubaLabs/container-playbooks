@@ -1,4 +1,6 @@
 ---
+# TODO disable swap (figure out way to do this permanetley)
+
 # very similar to docker.yml, except this is used for running kubernetes nodes
 - name: install containerd dependencies
   apt:
@@ -34,11 +36,18 @@
     append: yes
 - name: remove cri from disabled plugins in containerd config.toml
   shell: sed -i 's/disabled_plugins = \["cri"\]/disabled_plugins = \[\]/' /etc/containerd/config.toml
+
+# TODO also add following lines to /etc/containerd/config.toml
+# [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+#     [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+#         SystemdCgroup = true
 - name: start and enable containerd service
   systemd:
     name: containerd
-    state: started
+    state: restarted
     enabled: yes
-- name: run kubeadm init
-  shell: kubeadm init
 
+# add following to /etc/ufw/sysctl.conf
+#   net/bridge/bridge-nf-call-ip6tables = 1
+#   net/bridge/bridge-nf-call-iptables = 1
+#   net/bridge/bridge-nf-call-arptables = 1
