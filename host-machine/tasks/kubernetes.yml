@@ -54,7 +54,7 @@
     proto: tcp
 
 # - name: run kubeadm init
-#   shell: kubeadm init --skip-phases=kubelet-finalize
+#   shell: kubeadm init --skip-phases=kubelet-finalize --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address={MASTER NODE IP (192.168.1.101) for sendai}
 
 # TODO run post kubeadm stuff (as dev user)
 # mkdir -p $HOME/.kube
@@ -63,3 +63,4 @@
 
 # troubleshooting if `kubectl get all` cant connect to port 443
 # just run `systemctl restart kubelet`
+
