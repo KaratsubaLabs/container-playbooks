@@ -1,0 +1,8 @@
+
+registry:
+  image: "registry:2"
+  containerPort: 5000
+
+ingress:
+  host: "registry.mycluster.io"
+

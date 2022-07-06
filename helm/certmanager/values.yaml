@@ -1,0 +1,8 @@
+
+image:
+  repository: quay.io/jetstack/cert-manager-controller
+
+installCRDs: true
+
+prometheus:
+  enabled: false

@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: registry-statefulset
+  labels:
+    app: registry
+spec:
+  serviceName: registry
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+      - name: registry
+        image: {{ .Values.registry.image }}
+        ports:
+        - containerPort: {{ .Values.registry.containerPort }}
+        env:
+        # - name: REGISTRY_AUTH
+        #   value: "htpasswd"
+        # - name: REGISTRY_AUTH_HTPASSWD_REALM
+        #   value: "Registry Realm"
+        # - name: REGISTRY_AUTH_HTPASSWD_PATH
+        #   value: "/auth/htpasswd"
+        # - name: REGISTRY_HTTP_SECRET
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: {{ template "docker-registry.fullname" . }}-secret
+        #       key: haSharedSecret
+        # - name: REGISTRY_HTTP_TLS_CERTIFICATE
+        #   value: /etc/ssl/docker/tls.crt
+        # - name: REGISTRY_HTTP_TLS_KEY
+        #   value: /etc/ssl/docker/tls.key
+        # volumeMounts:
+        # - name: data
+        #   mountPath: /var/lib/registry
+        #   readOnly: false
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "hostpath"
+      resources:
+        requests:
+          storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-statefulset
+spec:
+  selector:
+    app: registry
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: {{ .Values.registry.containerPort }}

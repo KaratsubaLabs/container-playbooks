@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: codimd-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-issuer"
+spec:
+  # tls:
+  # - hosts:
+  #   - {{ .Values.ingress.host }}
+  #   secretName: codimd-cert
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: codimd-service
+            port:
+              number: {{ .Values.codimd.containerPort }}
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: codimd-ingresscontroller
+spec:
+  controller: k8s.io/ingress-nginx

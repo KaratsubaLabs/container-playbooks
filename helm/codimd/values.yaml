@@ -1,0 +1,18 @@
+
+codimd:
+  image: "hackmdio/hackmd:2.4.1"
+  containerPort: 3000
+
+  secrets:
+    sessionSecret: "supersecret"
+
+postgres:
+  image: "postgres:11.6-alpine"
+
+  secrets:
+    user: "postgres"
+    password: "postgres"
+    database: "postgres"
+
+ingress:
+  host: "mycluster.io"
