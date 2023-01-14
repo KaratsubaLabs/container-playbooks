@@ -9,3 +9,4 @@ services:
   - {cluster: "kanboard", url: "todo.{{DOMAIN}}", address: "kanboard-app", port: "80", enabled: "true"}
   - {cluster: "drone", url: "drone.{{DOMAIN}}", address: "drone-server", port: "80", enabled: "true"}
   - {cluster: "icecast", url: "radio.{{DOMAIN}}", address: "icecast-app", port: "8000", enabled: "true"}
+  - {cluster: "onigiri", url: "onigiri.{{DOMAIN}}", address: "onigiri-app", port: "8080", enabled: "true"}
